@@ -17,9 +17,9 @@
 
 ### 🚀 核心功能
 - **多源 IP 并发检测**：使用 `Race` 竞速模式，同时请求 `ipify`, `myip.is`, `icanhazip` 等多个源，优先展示最快返回的结果，大幅提升 **IPv6** 识别率。
-- **局域网 IP (LAN IP)**：利用 WebRTC 技术探测内网 IP 地址。
-- **地理位置定位**：显示国家、城市、ASN（自治系统号）、运营商及邮编。
-- **网络连通性测试**：实时检测到 Google, GitHub, Cloudflare 的延迟（Ping 值），每 3 秒自动刷新，支持点击手动刷新。
+- **网络位置上下文**：显示时区、当地时间、经纬度、UTC 偏移、ASN 与运营商。
+- **网络连通性测试**：检测到百度、Google、GitHub 的请求延迟，每 15 秒自动刷新，并在页面切回前台时更新。
+- **IP 安全度查询**：根据当前公网 IP 一键打开 Scamalytics 官方欺诈风险报告，无需在前端暴露 API 密钥。
 - **嵌入式地图**：集成 OpenStreetMap，根据日夜模式自动应用黑白滤镜，支持一键跳转 Google Maps / 高德地图。
 - **设备指纹**：显示浏览器内核、操作系统及屏幕分辨率。
 
@@ -31,7 +31,10 @@
 * **APIs**:
     * IP Detection: `ipify`, `myip.is`, `icanhazip`
     * Geo Data: `ipwho.is`
+    * IP Risk Report: `Scamalytics`
     * Map: `OpenStreetMap`
+
+> Scamalytics 的结构化 API 需要账户和配额。当前纯静态版本使用官方报告页进行零密钥查询；如需在站内直接显示风险分数，应通过服务端代理安全保存 API 密钥。
 
 ## 📦 快速开始
 

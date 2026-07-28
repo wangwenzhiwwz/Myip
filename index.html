@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
 
@@ -35,34 +35,38 @@
 <style>
 /* --- System Design (Soft & Airy) --- */
 :root {
-  --bg-body: #f5f7fa; 
-  --bg-card: #ffffff; 
-  --bg-inner: #f8f9fb;
-  --text-main: #1a1a1a; 
-  --text-label: #737373; 
-  --text-value: #1f1f1f; 
-  --text-dim: #a3a3a3;
-  
-  --shadow-card: 0 2px 8px -2px rgba(0,0,0,0.02), 0 4px 16px -4px rgba(0,0,0,0.02);
-  --shadow-hover: 0 8px 24px -6px rgba(0,0,0,0.04), 0 4px 8px -2px rgba(0,0,0,0.01);
+  --bg-body: #f3f4f6;
+  --bg-card: #ffffff;
+  --bg-inner: #f6f6f7;
+  --text-main: #202124;
+  --text-label: #6f7175;
+  --text-value: #303236;
+  --text-dim: #9a9ca1;
+  --accent: #4b4d52;
+  --accent-soft: #f1f1f2;
+  --accent-border: #dedfe2;
+
+  --shadow-card: 0 10px 30px -24px rgba(29, 45, 76, 0.28);
+  --shadow-hover: 0 18px 38px -24px rgba(29, 45, 76, 0.34);
   
   --radius: 24px; 
   --font: 'Inter', system-ui, -apple-system, sans-serif;
   
-  --status-green: #10b981; 
-  --status-yellow: #f59e0b; 
-  --status-red: #ef4444; 
-  --status-gray: #e5e7eb;
-}
-
-html.dark-mode {
-    --bg-body: #121212; 
-    --bg-card: #1c1c1e; 
-    --bg-inner: #2c2c2e;
-    --text-main: #f5f5f7; 
-    --text-label: #86868b; 
-    --text-value: #e5e5e7; 
-    --text-dim: #636366;
+  --status-green: #4b4d52;
+  --status-yellow: #8b8e94;
+  --status-red: #24262a;
+  --status-gray: #d9dade;
+}html.dark-mode {
+    --bg-body: #1b1c1e;
+    --bg-card: #252629;
+    --bg-inner: #303135;
+    --text-main: #f2f2f3;
+    --text-label: #a6a7ab;
+    --text-value: #e2e2e4;
+    --text-dim: #77797f;
+    --accent: #d5d6d8;
+    --accent-soft: #323338;
+    --accent-border: #484a50;
     
     --shadow-card: 0 0 0 1px rgba(255,255,255,0.05), 0 2px 10px rgba(0,0,0,0.2);
     --shadow-hover: 0 0 0 1px rgba(255,255,255,0.1), 0 8px 30px rgba(0,0,0,0.4);
@@ -76,18 +80,19 @@ html.dark-mode {
 ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 99px; }
 html.dark-mode ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); }
 
-* { box-sizing: border-box; margin: 0; padding: 0; outline: none; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--status-green); outline-offset: 3px; }
 
 body {
   font-family: var(--font); background-color: var(--bg-body); color: var(--text-main);
-  min-height: 100vh; display: flex; justify-content: center; padding: 30px 16px; 
+  min-height: 100vh; display: flex; justify-content: center; padding: 36px 18px 48px;
   transition: background 0.4s ease, color 0.3s ease;
 }
 
-.container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 20px; }
+.container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 18px; }
 
 /* Header */
-.header-bar { display: flex; justify-content: space-between; align-items: center; padding: 0 6px; margin-bottom: 4px; }
+.header-bar { display: flex; justify-content: space-between; align-items: center; padding: 0 8px; margin-bottom: 4px; min-height: 44px; }
 
 /* Logo Optimization: Interactive Feedback */
 .brand-logo { 
@@ -102,7 +107,7 @@ body {
 .controls-group { display: flex; gap: 10px; }
 
 .btn-circle {
-  width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); color: var(--text-main); border: none; box-shadow: var(--shadow-card); cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  width: 40px; height: 40px; border-radius: 14px; background: var(--bg-card); color: var(--text-value); border: 1px solid rgba(116,132,158,0.12); box-shadow: var(--shadow-card); cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.8rem; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .btn-circle:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
 .btn-circle svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
@@ -114,7 +119,7 @@ body {
   display: flex; flex-direction: column; align-items: center; text-align: center;
   position: relative; overflow: hidden;
   transition: box-shadow 0.4s ease, transform 0.4s ease;
-  min-height: 340px; justify-content: center;
+  min-height: 326px; justify-content: center;
   cursor: pointer; 
 }
 .hero-card:hover { box-shadow: var(--shadow-hover); }
@@ -136,16 +141,19 @@ html.dark-mode .hero-card:hover .hero-map-bg { opacity: 0.5; }
 .hero-map-bg.loaded { opacity: 0.15; transform: scale(1) translateY(0); }
 html.dark-mode .hero-map-bg { filter: invert(95%) hue-rotate(180deg) grayscale(20%) contrast(1.1) brightness(0.8); }
 html.dark-mode .hero-map-bg.loaded { opacity: 0.3; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
 
 .hero-content {
-    position: relative; z-index: 2; padding: 48px 30px;
+    position: relative; z-index: 2; padding: 40px 30px;
     display: flex; flex-direction: column; align-items: center; width: 100%;
     pointer-events: none; 
 }
 .hero-content > * { pointer-events: auto; } 
 
 .flag-container {
-  width: 80px; height: 60px; border-radius: 16px; background: var(--bg-inner); margin-bottom: 24px;
+  width: 72px; height: 52px; border-radius: 15px; background: var(--bg-inner); margin-bottom: 20px;
   display: flex; align-items: center; justify-content: center; overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.04); transition: transform 0.3s;
 }
@@ -153,32 +161,43 @@ html.dark-mode .hero-map-bg.loaded { opacity: 0.3; }
 .flag-img { width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.5s; }
 .flag-img.loaded { opacity: 1; }
 
-.label-sup { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-label); text-transform: uppercase; margin-bottom: 12px; background: var(--bg-card); padding: 6px 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-#ipAddr { font-size: clamp(2.5rem, 6vw, 4.2rem); font-weight: 800; color: var(--text-main); line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.03em; cursor: pointer; transition: color 0.3s; }
+.label-sup { font-size: 0.7rem; font-weight: 750; letter-spacing: 0.11em; color: var(--text-label); text-transform: uppercase; margin-bottom: 12px; background: var(--bg-inner); padding: 6px 11px; border-radius: 999px; }
+#ipAddr { font-size: clamp(3rem, 7vw, 4.8rem); font-weight: 750; color: var(--text-main); line-height: 1.05; margin-bottom: 22px; letter-spacing: -0.045em; cursor: pointer; transition: color 0.3s; }
 #ipAddr:active { opacity: 0.7; transform: scale(0.98); }
 
-.location-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-inner); padding: 12px 24px; border-radius: 99px; font-weight: 500; font-size: 0.95rem; color: var(--text-value); transition: background 0.3s; border: 1px solid rgba(0,0,0,0.03); }
+.location-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,248,252,0.9); padding: 10px 20px; border-radius: 99px; font-weight: 550; font-size: 0.9rem; color: var(--text-value); transition: background 0.3s; border: 1px solid rgba(116,132,158,0.12); }
 .location-pill svg { width: 16px; height: 16px; fill: currentColor; opacity: 0.7; }
 
 /* Bento Grid */
-.bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; grid-auto-flow: dense; }
+.bento-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; grid-auto-flow: dense; }
 
 .card {
-  background: var(--bg-card); border-radius: var(--radius); box-shadow: var(--shadow-card); padding: 24px;
-  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  background: var(--bg-card); border-radius: 22px; box-shadow: var(--shadow-card); padding: 22px;
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 10px;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   position: relative; overflow: hidden; cursor: pointer;
-  min-height: 120px; border: 1px solid rgba(0,0,0,0.01);
+  min-height: 132px; border: 1px solid rgba(116,132,158,0.10);
 }
 .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
 .card:active { transform: scale(0.98); }
 
-.info-row { display: flex; flex-direction: column; gap: 8px; }
-.card-label { display: flex; align-items: center; gap: 10px; font-size: 0.75rem; font-weight: 700; color: var(--text-label); text-transform: uppercase; letter-spacing: 0.05em; }
-.card-icon-box { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: var(--bg-inner); border-radius: 10px; color: var(--text-main); transition: background 0.3s; }
+.info-row { display: flex; flex-direction: column; gap: 11px; height: 100%; }
+.card-label { display: flex; align-items: center; gap: 9px; font-size: 0.72rem; font-weight: 750; color: var(--text-label); text-transform: uppercase; letter-spacing: 0.065em; }
+.card-icon-box { width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: var(--bg-inner); border-radius: 10px; color: var(--accent); transition: background 0.3s; }
 .card-icon-box svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
-.card-value { font-size: 0.95rem; font-weight: 600; color: var(--text-value); word-break: break-all; line-height: 1.5; margin-top: 2px; transition: color 0.2s; }
+.card-value { font-size: 0.94rem; font-weight: 620; color: var(--text-value); word-break: break-word; line-height: 1.45; transition: color 0.2s; }
 .card-value.copied { color: var(--status-green) !important; }
+#card_ipv6 { min-height: 132px; order: -2; }
+#card_ipv6 .card-value { font-size: clamp(1.08rem, 2.4vw, 1.45rem); line-height: 1.3; letter-spacing: -0.02em; color: var(--text-value); overflow-wrap: anywhere; }
+.risk-card { cursor: default; order: -1; }
+.risk-card .info-row { justify-content: space-between; }
+.risk-action {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  width: fit-content; padding: 9px 14px; border: 0; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent); border: 1px solid var(--accent-border); font: inherit;
+  font-size: 0.78rem; font-weight: 700; cursor: pointer;
+}
+.risk-action:hover { background: var(--accent-border); transform: translateY(-1px); }
 
 /* Lists & Connectivity */
 .network-list { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
@@ -186,7 +205,7 @@ html.dark-mode .hero-map-bg.loaded { opacity: 0.3; }
 .network-label { font-size: 0.7rem; font-weight: 700; color: var(--text-label); opacity: 0.8; text-transform: uppercase; letter-spacing: 0.05em; }
 .network-val { font-size: 0.95rem; font-weight: 600; color: var(--text-value); font-family: 'Inter', monospace; }
 
-.latency-list { display: flex; flex-direction: column; gap: 12px; width: 100%; margin-top: 6px; }
+.latency-list { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 1px; }
 .latency-item { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: 500; }
 .latency-name { display: flex; align-items: center; gap: 8px; color: var(--text-label); }
 .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--status-gray); transition: background 0.3s; }
@@ -247,37 +266,41 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (max-width: 480px) {
-  body { padding: 20px 16px; } 
-  .hero-card { min-height: 280px; padding: 40px 20px; } 
+  body { padding: 20px 16px; }
+  .hero-card { min-height: 286px; }
+  .hero-content { padding: 34px 18px; }
+  #ipAddr { font-size: clamp(2.55rem, 14vw, 3.6rem); overflow-wrap: anywhere; }
   .hero-map-bg { transform: scale(1.15) translateY(30px); -webkit-mask-image: linear-gradient(to bottom, transparent 20%, black 100%); }
-  .bento-grid { grid-template-columns: 1fr; } 
-  .span-1, .span-2, .col-full, .span-4 { grid-column: span 1; } 
+  .bento-grid { grid-template-columns: 1fr; }
+  .span-1, .span-2, .col-full, .span-4 { grid-column: span 1; }
   .brand-logo { font-size: 1.2rem; }
+  .card { min-height: auto; padding: 20px; }
+  #card_ipv6 .card-value { font-size: 1.05rem; }
 }
 </style>
 </head>
 <body>
 
-<div id="offlineAlert"></div>
+<div id="offlineAlert" role="status" aria-live="polite"></div>
 
 <div class="container">
   <header class="header-bar">
-    <h1 class="brand-logo" onclick="location.reload()" title="Refresh">
+    <h1 class="brand-logo" title="IP.WWZ.iM">
         IP<span>.</span>WWZ<span>.</span>iM
     </h1>
     
     <div class="controls-group">
-        <button id="shareBtn" class="btn-circle" title="Share" style="display:none;">
+        <button id="shareBtn" class="btn-circle" title="Share" aria-label="Share IP information" style="display:none;">
             <svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
         </button>
-        <button id="themeToggle" class="btn-circle" title="Theme">
+        <button id="themeToggle" class="btn-circle" title="Theme" aria-label="Toggle color theme" aria-pressed="false">
             <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
     </div>
   </header>
 
-  <div class="hero-card" id="heroCard" title="Click to open map">
-    <iframe id="heroMapFrame" class="hero-map-bg" src="about:blank" loading="lazy"></iframe>
+  <div class="hero-card" id="heroCard" title="Click to open map" role="link" tabindex="0" aria-label="Open detected location in maps">
+    <iframe id="heroMapFrame" class="hero-map-bg" src="about:blank" loading="lazy" title="Map of detected IP location" tabindex="-1"></iframe>
 
     
     <div class="hero-content">
@@ -286,7 +309,7 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
           <img id="ip-flag" class="flag-img" alt="Flag">
         </div>
         <div class="label-sup" data-zh="公网 IP 地址" data-en="Public IP Address">Public IP Address</div>
-        <div id="ipAddr" class="skeleton" onclick="copyText(this); event.stopPropagation();" style="min-width: 200px; height: 3.5rem;">Checking...</div>
+        <div id="ipAddr" class="skeleton" onclick="copyText(this); event.stopPropagation();" role="button" tabindex="0" aria-label="Copy public IP address" style="min-width: 200px; height: 3.5rem;">Checking...</div>
         <div class="location-pill">
           <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           <div id="ipPlace" class="skeleton" style="min-width: 100px; height: 1.2em;"></div>
@@ -298,9 +321,21 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
 
   <div class="bento-grid">
 
+    <div class="card span-2" id="card_ipv6" onclick="copyText(document.getElementById('ipv6'))">
+      <div class="info-row">
+        <div class="card-label">
+            <div class="card-icon-box"><svg viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg></div>
+            <span data-zh="IPv6 地址" data-en="IPv6 Address">IPv6 Address</span>
+        </div>
+        <div id="ipv6" class="card-value skeleton"></div>
+      </div>
+    </div>
+
     <div class="card span-2" id="card_connectivity" onclick="refreshLatency()">
       <div class="info-row" style="gap:12px;">
-        
+        <div class="card-label">
+          <span data-zh="网络延迟" data-en="Network Latency">Network Latency</span>
+        </div>
         <div class="latency-list">
             <div class="latency-item">
                 <div class="latency-name"><div class="status-dot" id="dot-baidu"></div>Baidu</div>
@@ -318,13 +353,18 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
         </div>
     </div>
 
-    <div class="card span-2" id="card_ipv6" onclick="copyText(document.getElementById('ipv6'))">
+    <div class="card span-2 risk-card" id="card_security">
       <div class="info-row">
         <div class="card-label">
-            <div class="card-icon-box"><svg viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg></div>
-            <span data-zh="IPv6 地址" data-en="IPv6 Address">IPv6 Address</span>
+          <div class="card-icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg>
+          </div>
+          <span data-zh="IP 安全度" data-en="IP Security">IP Security</span>
         </div>
-        <div id="ipv6" class="card-value skeleton"></div>
+        <button id="scamalyticsBtn" class="risk-action" type="button" disabled>
+          <span data-zh="安全查询" data-en="Security check">Security check</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
     </div>
 
@@ -353,33 +393,33 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
       </div>
     </div>
 
-    <div class="card span-1" id="card_country" onclick="copyText(document.getElementById('country'))">
+    <div class="card span-1" id="card_timezone" onclick="copyText(document.getElementById('timezone'))">
       <div class="info-row">
         <div class="card-label">
             <div class="card-icon-box"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
-            <span data-zh="国家" data-en="Country">Country</span>
+            <span data-zh="时区" data-en="Time Zone">Time Zone</span>
         </div>
-        <div id="country" class="card-value skeleton"></div>
+        <div id="timezone" class="card-value skeleton"></div>
       </div>
     </div>
 
-    <div class="card span-1" id="card_continent" onclick="copyText(document.getElementById('continent'))">
+    <div class="card span-1" id="card_local_time" onclick="copyText(document.getElementById('localTime'))">
       <div class="info-row">
         <div class="card-label">
             <div class="card-icon-box"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20"></path><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
-            <span data-zh="大洲" data-en="Continent">Continent</span>
+            <span data-zh="当地时间" data-en="Local Time">Local Time</span>
         </div>
-        <div id="continent" class="card-value skeleton"></div>
+        <div id="localTime" class="card-value skeleton"></div>
       </div>
     </div>
 
-    <div class="card span-2" id="card_ua" onclick="copyText(document.getElementById('uaInfo'))">
+    <div class="card span-2" id="card_coordinates" onclick="copyText(document.getElementById('coordinates'))">
       <div class="info-row">
         <div class="card-label">
             <div class="card-icon-box"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg></div>
-            <span data-zh="设备信息" data-en="Device Info">Device Info</span>
+            <span data-zh="经纬度" data-en="Coordinates">Coordinates</span>
         </div>
-        <div id="uaInfo" class="card-value" style="font-size:0.85rem; line-height:1.5;">Detecting...</div>
+        <div id="coordinates" class="card-value skeleton"></div>
       </div>
     </div>
 
@@ -393,21 +433,20 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
       </div>
     </div>
 
-    <div class="card span-1" id="card_postal" onclick="copyText(document.getElementById('postal'))">
+    <div class="card span-1" id="card_utc_offset" onclick="copyText(document.getElementById('utcOffset'))">
       <div class="info-row">
         <div class="card-label">
             <div class="card-icon-box"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></div>
-            <span data-zh="邮编" data-en="Postal Code">Postal Code</span>
+            <span data-zh="UTC 偏移" data-en="UTC Offset">UTC Offset</span>
         </div>
-        <div id="postal" class="card-value skeleton"></div>
+        <div id="utcOffset" class="card-value skeleton"></div>
       </div>
     </div>
 
-    
   </div>
 
   <footer class="footer">
-      <a href="https://wwz.im" target="_blank" class="footer-link-pill" title="Visit Official Website">
+      <a href="https://wwz.im" target="_blank" rel="noopener noreferrer" class="footer-link-pill" title="Visit Official Website">
           <span>Visit WWZ.iM</span>
           <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -420,24 +459,27 @@ html.dark-mode .skeleton { background: linear-gradient(90deg, #2c2c2e 25%, #3a3a
       </div>
   </footer>
 
-  <div id="toast" class="toast-container">
+  <div id="toast" class="toast-container" role="status" aria-live="polite">
       <svg class="toast-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
       <span id="toastMsg">Copied to clipboard</span>
   </div>
 </div>
 
 <script>
-const els={ipAddr:document.getElementById('ipAddr'),ipPlace:document.getElementById('ipPlace'),ipv6:document.getElementById('ipv6'),hostname:document.getElementById('hostname'),country:document.getElementById('country'),asn:document.getElementById('asn'),org:document.getElementById('org'),continent:document.getElementById('continent'),postal:document.getElementById('postal'),flag:document.getElementById('ip-flag'),flagSk:document.getElementById('flagSkeleton'),uaInfo:document.getElementById('uaInfo'),
+const els={ipAddr:document.getElementById('ipAddr'),ipPlace:document.getElementById('ipPlace'),ipv6:document.getElementById('ipv6'),timezone:document.getElementById('timezone'),localTime:document.getElementById('localTime'),coordinates:document.getElementById('coordinates'),utcOffset:document.getElementById('utcOffset'),asn:document.getElementById('asn'),org:document.getElementById('org'),hostname:document.getElementById('hostname'),flag:document.getElementById('ip-flag'),flagSk:document.getElementById('flagSkeleton'),
 heroCard: document.getElementById('heroCard'), heroMapFrame: document.getElementById('heroMapFrame'),
 toast: document.getElementById('toast'), toastMsg: document.getElementById('toastMsg'),
 shareBtn: document.getElementById('shareBtn'), offlineAlert: document.getElementById('offlineAlert'),
-langToggleFooter: document.getElementById('langToggleFooter')
+langToggleFooter: document.getElementById('langToggleFooter'),
+scamalyticsBtn: document.getElementById('scamalyticsBtn')
 };
 let lastIpv6='';
 let currentLang = 'en';
 let mapUrl = ''; 
 let toastTimeout;
 let ipData = {};
+let scamalyticsUrl = '';
+let localClockInterval;
 
 const themeToggleBtn = document.getElementById('themeToggle');
 const themeIcon = themeToggleBtn.querySelector('svg');
@@ -485,10 +527,11 @@ function switchLang(lang){
   });
   localStorage.setItem('lang', lang);
   updateCardVisibility('card_ipv6', els.ipv6.textContent);
-  updateCardVisibility('card_country', els.country.textContent);
+  updateCardVisibility('card_timezone', els.timezone.textContent);
   updateCardVisibility('card_asn', els.asn.textContent);
-  updateCardVisibility('card_continent', els.continent.textContent);
-  updateCardVisibility('card_postal', els.postal.textContent);
+  updateCardVisibility('card_local_time', els.localTime.textContent);
+  updateCardVisibility('card_coordinates', els.coordinates.textContent);
+  updateCardVisibility('card_utc_offset', els.utcOffset.textContent);
   els.offlineAlert.textContent = lang === 'zh' ? '网络连接已断开' : 'No Internet Connection';
 }
 
@@ -498,8 +541,9 @@ els.langToggleFooter.addEventListener('click', () => {
 });
 
 function applyThemeUI(isDark) {
-    if (isDark) { htmlEl.classList.add('dark-mode'); themeIcon.innerHTML = sunPath; } 
+    if (isDark) { htmlEl.classList.add('dark-mode'); themeIcon.innerHTML = sunPath; }
     else { htmlEl.classList.remove('dark-mode'); themeIcon.innerHTML = moonPath; }
+    themeToggleBtn.setAttribute('aria-pressed', String(isDark));
 }
 
 function initTheme() {
@@ -518,8 +562,12 @@ const sites = [
 // ----------------------------
 
 let latencyInterval;
+let latencyCheckRunning = false;
 async function checkLatency() {
-    sites.forEach(async (site) => {
+    if (latencyCheckRunning || document.hidden || !navigator.onLine) return;
+    latencyCheckRunning = true;
+    try {
+      await Promise.all(sites.map(async (site) => {
         const start = performance.now();
         const dot = document.getElementById(`dot-${site.id}`);
         const txt = document.getElementById(`lat-${site.id}`);
@@ -537,13 +585,16 @@ async function checkLatency() {
         } catch (e) {
             txt.textContent = 'Error'; txt.style.opacity = '1'; dot.style.background = 'var(--status-red)';
         }
-    });
+      }));
+    } finally {
+      latencyCheckRunning = false;
+    }
 }
 function refreshLatency() {
     clearInterval(latencyInterval);
     sites.forEach(site => { document.getElementById(`lat-${site.id}`).textContent = '...'; document.getElementById(`dot-${site.id}`).style.background = 'var(--status-gray)'; });
     checkLatency();
-    latencyInterval = setInterval(checkLatency, 3000);
+    latencyInterval = setInterval(checkLatency, 15000);
 }
 
 function getBrowserInfo() {
@@ -597,22 +648,72 @@ function showFlag(){ els.flagSk.style.display='none'; els.flag.classList.add('lo
 const CACHE_KEY = 'ip_geo_cache';
 const CACHE_TTL = 10 * 60 * 1000;
 
-async function fetchT(url,t=6000){const c=new AbortController();setTimeout(()=>c.abort(),t);const r=await fetch(url,{signal:c.signal});if(!r.ok)throw'';const ct=r.headers.get('content-type')||'';return ct.includes('json')||ct.includes('text')?r.json():{text:(await r.text()).trim()}}
+async function fetchT(url,t=6000){
+  const c=new AbortController(), timer=setTimeout(()=>c.abort(),t);
+  try {
+    const r=await fetch(url,{signal:c.signal,cache:'no-store'});
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    const ct=r.headers.get('content-type')||'';
+    return ct.includes('json')?r.json():{text:(await r.text()).trim()};
+  } finally { clearTimeout(timer); }
+}
 
+function startLocalClock(timeZone) {
+  clearInterval(localClockInterval);
+  if (!timeZone) {
+    els.localTime.textContent = currentLang === 'zh' ? '未知' : 'Unknown';
+    rmSk(els.localTime);
+    updateCardVisibility('card_local_time', els.localTime.textContent);
+    return;
+  }
+  const update = () => {
+    try {
+      els.localTime.textContent = new Intl.DateTimeFormat(currentLang === 'zh' ? 'zh-CN' : 'en-GB', {
+        timeZone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      }).format(new Date());
+    } catch {
+      els.localTime.textContent = currentLang === 'zh' ? '未知' : 'Unknown';
+    }
+    rmSk(els.localTime);
+    updateCardVisibility('card_local_time', els.localTime.textContent);
+  };
+  update();
+  localClockInterval = setInterval(update, 1000);
+}
+
+function setupScamalytics(ip) {
+  if (!ip || ip === 'Unknown') return;
+  scamalyticsUrl = `https://scamalytics.com/ip/${encodeURIComponent(ip)}`;
+  els.scamalyticsBtn.disabled = false;
+  els.scamalyticsBtn.addEventListener('click', () => {
+    window.open(scamalyticsUrl, '_blank', 'noopener,noreferrer');
+  }, { once: true });
+}
 async function getIPs() {
-  const [v4, v6] = await Promise.allSettled([ fetchT('https://api.ipify.org?format=json'), fetchT('https://api64.ipify.org?format=json') ]);
-  const ipv4 = v4.status === 'fulfilled' ? (v4.value.ip || v4.value.text || 'Unknown') : 'Unknown';
-  const ipv6 = v6.status === 'fulfilled' ? (v6.value.ip || v6.value.text || '') : 'Not Detected';
+  const getAddress=async(url,version)=>{
+    const d=await fetchT(url), value=String(d.ip||d.address||d.text||'').trim();
+    const valid=version===4?/^\d{1,3}(?:\.\d{1,3}){3}$/.test(value):value.includes(':');
+    if(!valid)throw new Error(`Invalid IPv${version} response`);
+    return value;
+  };
+  const [v4,v6]=await Promise.allSettled([
+    Promise.any([getAddress('https://api.ipify.org?format=json',4),getAddress('https://ipv4.icanhazip.com',4)]),
+    Promise.any([getAddress('https://api6.ipify.org?format=json',6),getAddress('https://ipv6.icanhazip.com',6)])
+  ]);
+  const ipv4=v4.status==='fulfilled'?v4.value:'Unknown';
+  const ipv6=v6.status==='fulfilled'?v6.value:'Not Detected';
   if (ipv6 && ipv6 !== ipv4) lastIpv6 = ipv6;
   return { ipv4: ipv4, ipv6: ipv6 || lastIpv6 || 'Not Detected' };
 }
 
 async function getGeo(ip){
-  const cache = localStorage.getItem(CACHE_KEY);
-  if(cache){
-    const {data, timestamp, cachedIp} = JSON.parse(cache);
-    if(cachedIp === ip && Date.now() - timestamp < CACHE_TTL){ return data; }
-  }
+  try{
+    const cache=localStorage.getItem(CACHE_KEY);
+    if(cache){
+      const {data,timestamp,cachedIp}=JSON.parse(cache);
+      if(cachedIp===ip&&Date.now()-timestamp<CACHE_TTL){ipData=data;return data}
+    }
+  }catch{localStorage.removeItem(CACHE_KEY)}
   const apis=[`https://ipwho.is/${ip?encodeURIComponent(ip):''}`,`https://ipapi.co/${ip?encodeURIComponent(ip)+'/':''}json/`,'https://ipinfo.io/json'];
   for(const u of apis){
     try{
@@ -630,6 +731,7 @@ async function getGeo(ip){
 function renderCoords(lat, lon){
   mapUrl = currentLang === 'zh' ? `https://uri.amap.com/marker?position=${lon},${lat}&name=Location` : `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
   els.heroCard.onclick = () => window.open(mapUrl, '_blank');
+  els.heroCard.onkeydown = (e) => { if(e.key==='Enter'||e.key===' '){e.preventDefault();window.open(mapUrl,'_blank','noopener')} };
   const nLat = parseFloat(lat), nLon = parseFloat(lon), delta = 0.05; 
   requestAnimationFrame(() => {
      els.heroMapFrame.src = `https://www.openstreetmap.org/export/embed.html?bbox=${nLon-delta},${nLat-delta},${nLon+delta},${nLat+delta}&layer=mapnik&marker=${nLat},${nLon}`;
@@ -647,32 +749,37 @@ function render(ip,geo){
   rmSk(els.ipAddr);
   if(!geo){rmSk(els.ipPlace);els.ipPlace.textContent=currentLang==='zh'?'未知地区':'Unknown Location';els.flagSk.style.display='none';return}
   const place=(geo.country_name||geo.country||'')+(geo.city?' · '+geo.city:'');
-  els.ipPlace.innerHTML = place || (currentLang==='zh'?'未知地区':'Unknown Location'); rmSk(els.ipPlace);
+  els.ipPlace.textContent = place || (currentLang==='zh'?'未知地区':'Unknown Location'); rmSk(els.ipPlace);
   let code=(geo.country_code||geo.country||'').toLowerCase();
   if(code.length===2){els.flag.src=`https://flagcdn.com/w160/${code}.png`;els.flag.onload=showFlag;if(els.flag.complete&&els.flag.naturalWidth)showFlag()}else{els.flagSk.style.display='none'}
-  [els.hostname,els.country,els.asn,els.org,els.continent,els.postal,els.ipv6].forEach(rmSk);
+  [els.hostname,els.timezone,els.coordinates,els.utcOffset,els.asn,els.org,els.ipv6].forEach(rmSk);
   
   const v6 = geo.ipv6||lastIpv6;
   if(v6 && v6!=='Not Detected') { els.ipv6.textContent=v6; } else { els.ipv6.textContent=currentLang==='zh'?'未检测到':'Not Detected'; }
   updateCardVisibility('card_ipv6', els.ipv6.textContent);
   
-  els.country.textContent=geo.country_name||geo.country|| (currentLang==='zh'?'未知':'Unknown');
-  updateCardVisibility('card_country', els.country.textContent);
+  const timeZone=typeof geo.timezone==='string'
+    ? geo.timezone
+    : (geo.timezone?.id||geo.time_zone?.name||(typeof geo.time_zone==='string'?geo.time_zone:''));
+  els.timezone.textContent=timeZone|| (currentLang==='zh'?'未知':'Unknown');
+  updateCardVisibility('card_timezone', els.timezone.textContent);
+  startLocalClock(timeZone);
   
   const asnNum=geo.connection?.asn||geo.asn||'';
   els.asn.textContent=asnNum?(currentLang==='zh'?`AS${asnNum}`:`AS${asnNum}`): (currentLang==='zh'?'未知':'Unknown');
   updateCardVisibility('card_asn', els.asn.textContent);
   
-  els.continent.textContent=geo.continent_name||geo.continent|| (currentLang==='zh'?'未知':'Unknown');
-  updateCardVisibility('card_continent', els.continent.textContent);
-  
-  els.postal.textContent=geo.postal||geo.postal_code|| (currentLang==='zh'?'未知':'Unknown');
-  updateCardVisibility('card_postal', els.postal.textContent);
-  
   els.org.textContent=geo.org||geo.connection?.isp||geo.isp|| (currentLang==='zh'?'未知':'Unknown');
-  
-  const lat=geo.latitude||geo.lat,lon=geo.longitude||geo.lon;
-  if(lat && lon && !isNaN(lat) && !isNaN(lon)){ renderCoords(lat, lon); }
+
+  const [locLat,locLon]=typeof geo.loc==='string'?geo.loc.split(','):[];
+  const lat=geo.latitude||geo.lat||locLat,lon=geo.longitude||geo.lon||locLon;
+  const hasCoordinates=Number.isFinite(Number(lat))&&Number.isFinite(Number(lon));
+  els.coordinates.textContent=hasCoordinates?`${Number(lat).toFixed(4)}, ${Number(lon).toFixed(4)}`:(currentLang==='zh'?'未知':'Unknown');
+  updateCardVisibility('card_coordinates', els.coordinates.textContent);
+  const offset=geo.timezone?.utc||geo.utc_offset||geo.time_zone?.offset||geo.timezone?.offset||'';
+  els.utcOffset.textContent=offset|| (currentLang==='zh'?'未知':'Unknown');
+  updateCardVisibility('card_utc_offset', els.utcOffset.textContent);
+  if(hasCoordinates){ renderCoords(lat, lon); }
   
   fetchHostname(geo.ip||geo.query||'').then(h=>els.hostname.textContent=h|| (currentLang==='zh'?'未检测到':'Not Detected'));
 }
@@ -682,9 +789,8 @@ async function fetchHostname(ip){if(!ip)return currentLang==='zh'?'未检测到'
 async function start(){
   localStorage.removeItem('theme');
   initTheme();
-  getBrowserInfo();
-  checkLatency(); 
-  latencyInterval = setInterval(checkLatency, 3000);
+  checkLatency();
+  latencyInterval = setInterval(checkLatency, 15000);
   // Removed initNetworkCard() call here
 
   const savedLang = localStorage.getItem('lang');
@@ -693,9 +799,12 @@ async function start(){
   const primary=ipv4!=='Unknown'?ipv4:(ipv6.includes('Not Detected')?'Unknown':ipv6);
   els.ipAddr.textContent=primary;rmSk(els.ipAddr);els.ipv6.textContent=ipv6;
   if(primary==='Unknown'){els.flagSk.style.display='none';return}
+  setupScamalytics(primary);
   const geo=await getGeo(primary);
   render(primary,geo);
 }
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkLatency()});
+els.ipAddr.addEventListener('keydown',(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();copyText(els.ipAddr)}});
 window.onload=()=>start();
 </script>
 </body>
