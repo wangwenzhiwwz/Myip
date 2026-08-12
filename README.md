@@ -16,23 +16,23 @@
 - **磨砂玻璃质感**：地图悬浮按钮采用 Glassmorphism 效果。
 
 ### 🚀 核心功能
-- **多源 IP 并发检测**：使用 `Race` 竞速模式，同时请求 `ipify`, `myip.is`, `icanhazip` 等多个源，优先展示最快返回的结果，大幅提升 **IPv6** 识别率。
-- **网络位置上下文**：显示时区、当地时间、经纬度、UTC 偏移、ASN 与运营商。
-- **网络连通性测试**：检测到百度、Google、GitHub 的请求延迟，每 15 秒自动刷新，并在页面切回前台时更新。
+- **多源 IP 智能竞速**：优先请求 `ipify`，仅在响应偏慢或失败时启动 `icanhazip`，成功后取消其余请求，兼顾速度与请求数量。
+- **核心网络信息**：突出显示公网 IPv4、IPv6、运营商、ASN、时区与当地时间。
+- **HTTP 连通性测试**：页面核心数据加载完成后再检测百度、Google、GitHub 的请求延迟，每 60 秒后台更新并支持手动刷新。
 - **IP 安全度查询**：根据当前公网 IP 一键打开 Scamalytics 官方欺诈风险报告，无需在前端暴露 API 密钥。
-- **嵌入式地图**：集成 OpenStreetMap，根据日夜模式自动应用黑白滤镜，支持一键跳转 Google Maps / 高德地图。
-- **设备指纹**：显示浏览器内核、操作系统及屏幕分辨率。
+- **按需地图**：不再自动加载嵌入式地图；点击主卡片后按语言跳转 Google Maps / 高德地图。
 
 ## 🛠️ 技术栈
 
 * **Core**: HTML5, Vanilla JavaScript (ES6+)
 * **Styling**: CSS3 Variables, Grid Layout, Flexbox
+* **Typography**: 本地自托管并裁剪的 `WWZ Sans` 可变字体（基于 Inter，100–900），避免外部字体请求并减少传输体积
 * **Icons**: Inline SVG (无额外的字体文件请求)
 * **APIs**:
-    * IP Detection: `ipify`, `myip.is`, `icanhazip`
+    * IP Detection: `ipify`, `icanhazip`
     * Geo Data: `ipwho.is`
     * IP Risk Report: `Scamalytics`
-    * Map: `OpenStreetMap`
+    * Map: `Google Maps` / `高德地图`
 
 > Scamalytics 的结构化 API 需要账户和配额。当前纯静态版本使用官方报告页进行零密钥查询；如需在站内直接显示风险分数，应通过服务端代理安全保存 API 密钥。
 
