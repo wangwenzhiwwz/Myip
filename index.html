@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
 <meta name="theme-color" content="#f5f7fa" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f4f6" data-theme="dynamic">
 
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -166,7 +167,7 @@ html.dark-mode .hero-map-bg.loaded { opacity: 0.3; }
 #ipAddr.long-ip { font-size: clamp(2.5rem, 6vw, 4rem); letter-spacing: -0.055em; }
 #ipAddr:active { opacity: 0.7; transform: scale(0.98); }
 
-.location-pill { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,248,252,0.9); padding: 10px 20px; border-radius: 99px; font-weight: 550; font-size: 0.9rem; color: var(--text-value); transition: background 0.3s; border: 1px solid rgba(116,132,158,0.12); }
+.location-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-inner); padding: 10px 20px; border-radius: 99px; font-weight: 550; font-size: 0.9rem; color: var(--text-value); transition: background 0.3s, color 0.3s, border-color 0.3s; border: 1px solid var(--accent-border); }
 .location-pill svg { width: 16px; height: 16px; fill: currentColor; opacity: 0.7; }
 
 /* Bento Grid */
@@ -543,17 +544,27 @@ els.langToggleFooter.addEventListener('click', () => {
 });
 
 function applyThemeUI(isDark) {
-    if (isDark) { htmlEl.classList.add('dark-mode'); themeIcon.innerHTML = sunPath; }
-    else { htmlEl.classList.remove('dark-mode'); themeIcon.innerHTML = moonPath; }
+    htmlEl.classList.toggle('dark-mode', isDark);
+    themeIcon.innerHTML = isDark ? sunPath : moonPath;
     themeToggleBtn.setAttribute('aria-pressed', String(isDark));
+    const themeColor = document.querySelector('meta[name="theme-color"][data-theme="dynamic"]');
+    if (themeColor) themeColor.content = isDark ? '#1b1c1e' : '#f3f4f6';
 }
 
 function initTheme() {
-    applyThemeUI(systemDarkQuery.matches);
-    systemDarkQuery.addEventListener('change', (e) => applyThemeUI(e.matches));
+    const savedTheme = localStorage.getItem('theme');
+    const hasSavedTheme = savedTheme === 'dark' || savedTheme === 'light';
+    applyThemeUI(hasSavedTheme ? savedTheme === 'dark' : systemDarkQuery.matches);
+    systemDarkQuery.addEventListener('change', (event) => {
+        if (!hasSavedTheme && !localStorage.getItem('theme')) applyThemeUI(event.matches);
+    });
 }
 
-themeToggleBtn.addEventListener('click', () => { applyThemeUI(!htmlEl.classList.contains('dark-mode')); });
+themeToggleBtn.addEventListener('click', () => {
+    const isDark = !htmlEl.classList.contains('dark-mode');
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    applyThemeUI(isDark);
+});
 
 // --- MODIFIED SITES ARRAY ---
 const sites = [
@@ -789,7 +800,6 @@ function render(ip,geo){
 async function fetchHostname(ip){if(!ip)return currentLang==='zh'?'未检测到':'Not Detected';try{const r=await fetch(`https://dns.google/resolve?name=${ip.split('.').reverse().join('.')}.in-addr.arpa&type=PTR`);const d=await r.json();return d.Answer?.[0]?.data?.replace(/\.$/,'')|| (currentLang==='zh'?'未检测到':'Not Detected')}catch{return currentLang==='zh'?'未检测到':'Not Detected'}}
 
 async function start(){
-  localStorage.removeItem('theme');
   initTheme();
   checkLatency();
   latencyInterval = setInterval(checkLatency, 15000);
